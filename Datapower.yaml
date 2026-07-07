@@ -1,0 +1,36 @@
+apiVersion: datapower.ibm.com/v1beta3
+kind: DataPowerService
+metadata:
+  name: quickstart
+  labels:
+    backup.datapower.ibm.com/component: datapowerservice
+  namespace: nfcu-demo
+spec:
+  license:
+    accept: true
+    license: L-MBWD-G64ATA
+    use: nonproduction
+  resources:
+    limits:
+      memory: 4Gi
+    requests:
+      cpu: 1
+      memory: 4Gi
+  users:
+    - accessLevel: privileged
+      name: admin
+      passwordSecret: dp-admin-password
+  domains:
+    - certs:
+        - certType: sharedcerts
+          secret: github.com.cer
+      dpApp:
+        config:
+          - web-mgmt-cfg
+      name: default
+    - certs:
+        - certType: sharedcerts
+          secret: github.com.cer      
+      name: demo
+  replicas: 1
+  version: 11.0.0.1

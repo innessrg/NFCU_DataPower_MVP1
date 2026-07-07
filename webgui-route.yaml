@@ -1,0 +1,19 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: quickstart-webgui
+  namespace: nfcu-demo
+spec:
+  host: quickstart-webgui-nfcu-demo.apps.itz-36kedw.infra01-lb.wdc04.techzone.ibm.com
+  port:
+    targetPort: webgui-9090
+  tls:
+    insecureEdgeTerminationPolicy: None
+    termination: passthrough
+  to:
+    kind: Service
+    name: quickstart-webgui
+    weight: 100
+  wildcardPolicy: None
+
+# update host name

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mpg-expose
+  namespace: nfcu-demo
+spec:
+  selector:
+    app.kubernetes.io/component: datapower
+    app.kubernetes.io/instance: nfcu-demo-quickstart
+  ports:
+  - protocol: TCP
+    port: 6000
+    targetPort: 6000
+    name: mpg

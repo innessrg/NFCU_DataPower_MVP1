@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: route-latin-bonobo
+  namespace: nfcu-demo
+spec:
+  path: /
+  to:
+    name: mpg-expose
+    weight: 100
+    kind: Service
+  host: ''
+  port:
+    targetPort: mpg
+  alternateBackends: []

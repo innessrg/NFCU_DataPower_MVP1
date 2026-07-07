@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: quickstart-webgui
+  namespace: nfcu-demo
+  labels:
+    app: datapower-management
+spec:
+  selector:
+    app.kubernetes.io/instance: nfcu-demo-quickstart
+    app.kubernetes.io/name: datapower
+  ports:
+  - name: webgui-9090
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  type: ClusterIP
+
+
