@@ -1,0 +1,25 @@
+domains:
+    - certs:
+        - certType: sharedcerts
+          secret: github.com.cer
+      dpApp:
+        config:
+          - web-mgmt-cfg
+      name: default
+    - certs:
+        - certType: sharedcerts
+          secret: github.com.cer
+      passwordMap:
+        - alias: pat
+          secret: pat
+      name: demo
+    - certs:
+        - certType: sharedcerts
+          secret: github.com.cer
+      dpApp:
+        config:
+          - pull-from-git-cfg
+      passwordMap:
+        - alias: pat
+          secret: pat
+      name: Test
