@@ -4,7 +4,7 @@ metadata:
   name: quickstart-webgui
   namespace: nfcu-demo
 spec:
-  host: quickstart-webgui-nfcu-demo.apps.itz-36kedw.infra01-lb.wdc04.techzone.ibm.com
+  host: quickstart-webgui-nfcu-demo.<hostname>
   port:
     targetPort: webgui-9090
   tls:
