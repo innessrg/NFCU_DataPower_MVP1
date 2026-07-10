@@ -1,0 +1,62 @@
+Lab 1: Log in to OpenShift
+oc login --token=<token> --server=https://api.<cluster-name>:6443
+oc whoami
+oc cluster-info
+
+Lab 2: Create or Select the Project
+oc new-project nfcu-demo
+oc project nfcu-demo
+oc project
+
+Lab 3: Install the DataPower Operator
+oc get catalogsource ibm-datapower-operator-catalog -n openshift-marketplace
+oc describe catalogsource ibm-datapower-operator-catalog -n openshift-marketplace
+oc get subscription datapower-operator -n openshift-operators
+oc get csv -n openshift-operators
+oc get pods -n openshift-operators
+
+Lab 4: Prepare Base Deployment Secrets and ConfigMaps
+oc project nfcu-demo
+oc create secret generic dp-admin-password --from-literal=password=admin -n nfcu-demo
+oc create secret generic github.com.cer --from-file=github.com.cer -n nfcu-demo
+oc create secret docker-registry ibm-entitlement-key --docker-server=cp.icr.io --docker-username=cp --docker-password=<YOUR_IBM_ENTITLEMENT_KEY> --docker-email=<YOUR_EMAIL> -n nfcu-demo
+oc secrets link default ibm-entitlement-key --for=pull -n nfcu-demo
+oc create configmap web-mgmt-cfg --from-file=web-mgmt.cfg -n nfcu-demo
+oc get configmap web-mgmt-cfg -n nfcu-demo
+oc get secret dp-admin-password -n nfcu-demo
+oc get secret github.com.cer -n nfcu-demo
+oc get secret ibm-entitlement-key -n nfcu-demo
+
+Lab 5: Deploy DataPower
+oc get pods -w
+oc get datapowerservice quickstart
+oc logs quickstart-0
+
+Lab 6: Expose the Web UI and MPG
+oc get ingresses.config/cluster -o jsonpath='{.spec.domain}'
+oc apply -f webgui-service.yaml
+oc apply -f webgui-route.yaml
+oc apply -f service.yaml
+oc apply -f route.yaml
+oc get route
+oc get route quickstart-webgui -o jsonpath='{.spec.host}'
+oc get route route-latin-bonobo -o jsonpath='{.spec.host}'
+
+Lab 7: Validate the Deployment
+oc get route quickstart-webgui -o jsonpath='{.spec.host}'
+curl -k http://<route-latin-bonobo-host>/sample-request-v
+oc get pods
+oc get datapowerservice
+oc get route
+
+Lab 8: Pull Configuration from Git
+oc project nfcu-demo
+oc create configmap pull-from-git --from-file=pull-from-git.cfg -n nfcu-demo
+oc delete secret github.com.cer -n nfcu-demo
+oc create secret generic github.com.cer --from-file=github.com.cer -n nfcu-demo
+oc create secret generic pat --from-literal=password=<YOUR_GITHUB_PAT_TOKEN> -n nfcu-demo
+oc get configmap pull-from-git -n nfcu-demo
+oc get secret github.com.cer -n nfcu-demo
+oc get secret pat -n nfcu-demo
+oc get pods -w
+oc get datapowerservice quickstart -o yaml | grep -A5 domains
