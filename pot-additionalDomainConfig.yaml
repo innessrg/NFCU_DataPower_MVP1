@@ -9,6 +9,9 @@ domains:
     - certs:
         - certType: sharedcerts
           secret: github.com.cer
+      dpApp:
+        config:
+          - pull-from-git-cfg
       passwordMap:
         - alias: pat
           secret: pat
