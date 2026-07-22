@@ -43,13 +43,13 @@ spec:
       size: 5Gi
       class: local-file-sc
       volumeMode: Filesystem
-      deleteClaim: false          # <--- CRITICAL: Prevents OCP from deleting the PVC on rebuilds
+      deleteClaim: false          # <---- CRITICAL: Prevents OCP from deleting the PVC on rebuilds
     - type: persistent
       path: /opt/ibm/datapower/drouter/local
       size: 1Gi
       class: local-file-sc
       volumeMode: Filesystem
-      deleteClaim: false          # <--- CRITICAL: Prevents OCP from deleting the PVC on rebuilds
+      deleteClaim: false          # <---- CRITICAL: Prevents OCP from deleting the PVC on rebuilds
     - type: ephemeral
       path: /opt/ibm/datapower/drouter/temporary
       size: 1Gi
