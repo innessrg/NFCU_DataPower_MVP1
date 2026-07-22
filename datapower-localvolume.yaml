@@ -10,7 +10,7 @@ spec:
           - key: kubernetes.io/hostname
             operator: In
             values:
-              - <your-actual-worker-node>   # ← update this line
+              - <your-actual-worker-node>   # ←- update this line
   storageClassDevices:
     - storageClassName: local-file-sc
       volumeMode: Filesystem
